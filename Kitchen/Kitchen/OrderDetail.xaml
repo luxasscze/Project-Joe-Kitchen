@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kitchen.OrderDetail"
+             BackgroundImageSource="bg.jpg">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Frame BackgroundColor="DarkOrange" Grid.Row="0" Opacity="0.7">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="orderIdText" TextColor="Purple" FontSize="42" HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"/>
+                        <Label x:Name="orderStatusText" TextColor="Black" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                        <Image x:Name="statusImage" HeightRequest="32" Grid.Column="2"/>
+                        <Label x:Name="orderChangedText" TextColor="Black" FontSize="26" HorizontalOptions="End" VerticalOptions="Center" Grid.Column="3"/>
+                    </Grid>
+                </Frame>
+                <Frame x:Name="minutesFrame" BackgroundColor="Black" CornerRadius="20" IsVisible="false" Grid.Row="1" Margin="0,40,0,40">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>                            
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Time to prepare in minutes" TextColor="White" FontSize="42" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center"/>
+                        <Button Text="10" Clicked="On10Clicked" BackgroundColor="GreenYellow" Grid.Row="1" Grid.Column="0" CornerRadius="20" FontSize="32" HeightRequest="100"/>
+                        <Button Text="20" Clicked="On20Clicked" BackgroundColor="GreenYellow" Grid.Row="1" Grid.Column="1" CornerRadius="20" FontSize="32" HeightRequest="100"/>
+                        <Button Text="30" Clicked="On30Clicked" BackgroundColor="GreenYellow" Grid.Row="1" Grid.Column="2" CornerRadius="20" FontSize="32" HeightRequest="100"/>
+                        <Button Text="40" Clicked="On40Clicked" BackgroundColor="GreenYellow" Grid.Row="2" Grid.Column="0" CornerRadius="20" FontSize="32" HeightRequest="100"/>
+                        <Button Text="50" Clicked="On50Clicked" BackgroundColor="GreenYellow" Grid.Row="2" Grid.Column="1" CornerRadius="20" FontSize="32" HeightRequest="100"/>
+                        <Button Text="60" Clicked="On60Clicked" BackgroundColor="GreenYellow" Grid.Row="2" Grid.Column="2" CornerRadius="20" FontSize="32" HeightRequest="100"/>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="Transparent" CornerRadius="20" Margin="0,10,0,10" x:Name="foodFrame" IsVisible="true" Grid.Row="1">
+                    <ScrollView VerticalOptions="Center">
+                        <ListView ItemsSource="{Binding Items}" HasUnevenRows="true" x:Name="itemsList">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid Padding="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.6*" />
+                                                <ColumnDefinition Width="0.1*" />
+                                                <ColumnDefinition Width="0.1*" />
+                                                <ColumnDefinition Width="0.1*" />
+                                                <ColumnDefinition Width="0.1*" />
+                                            </Grid.ColumnDefinitions>
+
+
+                                            <Label Grid.Column="0" Grid.Row="0" Text="{Binding ItemName}" FontAttributes="Bold" FontSize="24" VerticalOptions="Center" TextColor="White"/>
+                                            <Label Text="x" FontSize="20" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="StartAndExpand" Grid.Row="0" TextColor="White"/>
+                                            <Label Text="{Binding ItemQuantity}" FontSize="20" Grid.Column="2" HorizontalOptions="StartAndExpand" Grid.Row="0" TextColor="White"/>
+                                            <Label Grid.Column="3" Text="£" FontSize="28" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="0" TextColor="White"/>
+                                            <Label Text="{Binding ItemPrice}" FontSize="28" Grid.Column="4" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Grid.Row="0" TextColor="White"/>
+
+
+
+
+
+
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+
+
+                </Frame>
+
+                <Frame VerticalOptions="EndAndExpand" BackgroundColor="Transparent" Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="startCookingButton" Text="START COOKING" Clicked="OnStartCookingClicked" Grid.Column="0" Grid.Row="0" BackgroundColor="GreenYellow" TextColor="Black" FontSize="30" CornerRadius="10" HeightRequest="150"/>
+                        <Button x:Name="declineButton" Text="DECLINE" Clicked="OnDeclineClicked" Grid.Column="1" Grid.Row="0" BackgroundColor="IndianRed" TextColor="Black" FontSize="30" CornerRadius="10" HeightRequest="100"/>
+                        <Button x:Name="readyForDeliveryButton" Text="READY FOR DELIVERY" Clicked="OnReadyForDeliveryClicked" Grid.Column="2" Grid.Row="0" BackgroundColor="CadetBlue" TextColor="Black" FontSize="30" CornerRadius="10" HeightRequest="100"/>
+                        <Button x:Name="closeButton" Text="CLOSE" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="DarkOrange" TextColor="Black" FontSize="30" CornerRadius="20" Clicked="OnCloseClicked"/>
+                    </Grid>
+                </Frame>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

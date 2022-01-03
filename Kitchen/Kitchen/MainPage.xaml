@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Kitchen.MainPage"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             BackgroundImageSource="bgPP.jpg">
+
+    <StackLayout>
+        <Frame BackgroundColor="DarkOrange" Padding="24" CornerRadius="0" Opacity="0.5">
+            <Label x:Name="captionText" Text="LOGIN" HorizontalTextAlignment="Center" TextColor="Black" FontSize="36"/>
+        </Frame>
+        <Frame x:Name="loginFrame" BackgroundColor="DarkOrange" CornerRadius="20" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" WidthRequest="300" Margin="0,50,0,0" Opacity="0.8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Entry x:Name="emailText" Placeholder="Email" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Keyboard="Email"/>
+                <Entry x:Name="passwordText" Placeholder="Password" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsPassword="True" Keyboard="Plain"/>
+                <Button Text="LOGIN" BackgroundColor="Orange" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="20" Clicked="OnLoginClicked"/>
+            </Grid>
+        </Frame>
+        <Frame x:Name="statusSelectFrame" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" IsVisible="false">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="allButton" Clicked="OnAllClicked" Text="ALL (6)" Grid.Column="0" BackgroundColor="GreenYellow" BorderColor="GreenYellow" TextColor="Black" BorderWidth="1" CornerRadius="5"/>
+                <Button x:Name="newOrdersButton" Clicked="OnNewOrdersClicked" Text="NEW ORDERS (2)" Grid.Column="1" BackgroundColor="Transparent" BorderColor="GreenYellow" TextColor="GreenYellow" BorderWidth="1" CornerRadius="20"/>
+                <Button x:Name="inTheKitchenButton" Clicked="OnInTheKitchenClicked" Text="IN THE KITCHEN (1)" Grid.Column="2" BackgroundColor="Transparent" BorderColor="GreenYellow" TextColor="GreenYellow" BorderWidth="1" CornerRadius="20"/>
+                <Button x:Name="readyForDeliveryButton" Clicked="OnReadyForDeliveryClicked" Text="READY FOR DELIVERY (1)" Grid.Column="3" BackgroundColor="Transparent" BorderColor="GreenYellow" TextColor="GreenYellow" BorderWidth="1" CornerRadius="20"/>
+                <Button x:Name="onTheWayButton" Clicked="OnOnTheWayClicked" Text="ON THE WAY (1)" Grid.Column="4" BackgroundColor="Transparent" BorderColor="GreenYellow" TextColor="GreenYellow" BorderWidth="1" CornerRadius="20"/>
+                <Button x:Name="finishedButton" Clicked="OnFinishedClicked" Text="FINISHED (1)" Grid.Column="5" BackgroundColor="Transparent" BorderColor="GreenYellow" TextColor="GreenYellow" BorderWidth="1" CornerRadius="20"/>
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="ordersFrame" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" IsVisible="false" WidthRequest="1600">
+            <flv:FlowListView FlowColumnCount="4"                              
+                SeparatorVisibility="None"   
+                HasUnevenRows="True"  
+                x:Name="ordersList"
+                FlowItemTapped="OnOrderTapped"
+                FlowItemsSource="{Binding Orders}">
+
+
+                <flv:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="{Binding OrderColor}" Margin="1" CornerRadius="20">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Frame BackgroundColor="{Binding OrderIdColor}" CornerRadius="20" HasShadow="True" Grid.Row="0">
+                                    <Grid>
+                                        <Label HorizontalOptions="Fill" VerticalOptions="Fill" FontSize="32" TextColor="{Binding OrderTextOneColor}" XAlign="Center" YAlign="Center" Text="{Binding OrderId}" Grid.Row="0" Grid.Column="0"/>
+                                        <Image Source="{Binding OrderImage}" Grid.Row="0" Grid.Column="1" HeightRequest="32"/>
+                                    </Grid>
+                                </Frame>
+                                <Label HorizontalOptions="Fill" VerticalOptions="Fill" FontSize="24" TextColor="{Binding OrderTextTwoColor}" XAlign="Center" YAlign="Center" Text="{Binding Status}" Grid.Row="1"/>
+                                <Label HorizontalOptions="Fill" VerticalOptions="Fill" FontSize="18" TextColor="{Binding OrderTextTwoColor}" XAlign="Center" YAlign="Center" Text="{Binding StatusChanged}" Grid.Row="2"/>
+                                <Label HorizontalOptions="Fill" VerticalOptions="Fill" FontSize="14" TextColor="{Binding OrderTextTwoColor}" XAlign="Center" YAlign="Center" Text="{Binding Customer}" Grid.Row="3"/>
+                                <Label HorizontalOptions="Fill" VerticalOptions="Fill" FontSize="14" TextColor="{Binding OrderTextTwoColor}" XAlign="Center" YAlign="Center" Text="{Binding Eta}" Grid.Row="4"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </flv:FlowListView.FlowColumnTemplate>
+            </flv:FlowListView>
+        </Frame>
+
+        <Frame x:Name="noOrdersFrame" BackgroundColor="White" CornerRadius="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="true">
+            <Label x:Name="noOrderText" Text="LOADING..." FontSize="32" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Frame>
+    </StackLayout>
+
+</ContentPage>
