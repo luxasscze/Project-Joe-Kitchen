@@ -8,8 +8,16 @@ Android app to receive orders made in customer app.
 Application is designed to perform following tasks:
 <ul>
 <li> Staff login </li>
+  <ul>
+    <li> Every user needs to login first in order to use this application</li>
+    <li> All staff details, such as login information are managed via Windows Admin app</li>
+  </ul>
 <li> Managing orders with real-time refreshing</li>
-<li> Display details of every order </li>
+  
+  <ul>
+    <li> This section offers orders overview with status filtering (New order, In the kitchen, Ready for delivery, On the way and Finished)</li>
+    <li> From here, we can access order details and change the status.</li>
+  </ul>
 </ul>
 
 
